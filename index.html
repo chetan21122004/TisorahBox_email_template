@@ -223,15 +223,16 @@
         }
         
         .preview-content {
-            padding: 0;
+            padding: 20px;
             max-height: 80vh;
             overflow-y: auto;
+            background: #F4F4F4;
         }
         
         .email-preview {
-            transform: scale(0.8);
-            transform-origin: top left;
-            width: 125%;
+            display: flex;
+            justify-content: center;
+            width: 100%;
         }
         
         .toast {
@@ -265,9 +266,8 @@
                 top: 0;
             }
             
-            .email-preview {
-                transform: scale(1);
-                width: 100%;
+            .preview-content {
+                padding: 10px;
             }
         }
         
@@ -739,6 +739,33 @@
                 </div>
                 
                 <div class="template-type">
+                    <label>Sender:</label>
+                    <div class="template-options">
+                        <div class="template-option selected" data-sender="piyush">
+                            <input type="radio" name="senderType" value="piyush" checked>
+                            <div>
+                                <strong>Piyush</strong><br>
+                                <small>Senior Growth Manager</small>
+                            </div>
+                        </div>
+                        <div class="template-option" data-sender="ryna">
+                            <input type="radio" name="senderType" value="ryna">
+                            <div>
+                                <strong>Ryna</strong><br>
+                                <small>Sales Representative</small>
+                            </div>
+                        </div>
+                        <div class="template-option" data-sender="soumya">
+                            <input type="radio" name="senderType" value="soumya">
+                            <div>
+                                <strong>Soumya</strong><br>
+                                <small>Sales Representative</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="template-type">
                     <label>Email Type:</label>
                     <div class="template-options">
                         <div class="template-option selected" data-type="introduction">
@@ -785,9 +812,17 @@
         // Template options event listeners
         document.querySelectorAll('.template-option').forEach(option => {
             option.addEventListener('click', function() {
-                document.querySelectorAll('.template-option').forEach(opt => opt.classList.remove('selected'));
+                // Get the radio group name
+                const radioInput = this.querySelector('input[type="radio"]');
+                const groupName = radioInput.name;
+                
+                // Remove selected class only from options in the same group
+                document.querySelectorAll(`input[name="${groupName}"]`).forEach(radio => {
+                    radio.closest('.template-option').classList.remove('selected');
+                });
+                
                 this.classList.add('selected');
-                this.querySelector('input[type="radio"]').checked = true;
+                radioInput.checked = true;
                 updatePreview();
             });
         });
@@ -796,7 +831,35 @@
         document.getElementById('clientName').addEventListener('input', updatePreview);
         document.getElementById('companyName').addEventListener('input', updatePreview);
         
-        function getIntroductionTemplate(clientName, companyName) {
+        // Sender information
+        const senderInfo = {
+            piyush: {
+                name: 'PIYUSH',
+                title: 'Senior Growth Manager | Tisorah Box',
+                phone: '+917858815579',
+                email: 'growth@tisorahbox.com',
+                catalogueLink: 'https://drive.google.com/file/d/1nDS4XoqyIK7faRGbw7qSS2S-1qhe-ubv/view?usp=sharing',
+                calendlyLink: 'https://calendly.com/piyushanand6789/30min'
+            },
+            ryna: {
+                name: 'RYNA',
+                title: 'Sales Representative | Tisorah Box',
+                phone: '+917858815579',
+                email: 'sales@tisorahbox.com',
+                catalogueLink: 'https://drive.google.com/file/d/1CNU8p4SfxiH1EUSAJ13GnLaXL2op9EvW/view?usp=sharing',
+                calendlyLink: 'https://calendly.com/piyushanand6789/30min'
+            },
+            soumya: {
+                name: 'SOUMYA',
+                title: 'Sales Representative | Tisorah Box',
+                phone: '+917858815579',
+                email: 'sales@tisorahbox.com',
+                catalogueLink: 'https://drive.google.com/file/d/1iTQaS-fSUpsjdK71Pa1gG5SXK1wul3CP/view?usp=sharing',
+                calendlyLink: 'https://calendly.com/piyushanand6789/30min'
+            }
+        };
+        
+        function getIntroductionTemplate(clientName, companyName, sender) {
             return `<div class="email-container">
                 <div class="brand-stripe"></div>
                 
@@ -864,7 +927,7 @@
                     
                     <div class="cta-section">
                         <div class="cta-buttons">
-                            <a href="https://drive.google.com/file/d/1z768XbXOPHmI21ssvaZcBg1FIY3_VXzT/view?usp=sharing" 
+                            <a href="${sender.catalogueLink}" 
                                class="email-btn email-btn-primary" target="_blank">
                                 View Diwali Catalogue
                             </a>
@@ -907,7 +970,7 @@
                     
                     <div class="cta-section">
                         <div class="cta-buttons">
-                            <a href="https://calendly.com/piyushanand6789/30min" 
+                            <a href="${sender.calendlyLink}" 
                                class="email-btn email-btn-primary" target="_blank">
                                 Schedule a Call
                             </a>
@@ -936,21 +999,21 @@
                 
                 <div class="footer">
                     <div class="signature">
-                        <h3>PIYUSH</h3>
-                        <p class="title">Senior Growth Manager | Tisorah Box</p>
+                        <h3>${sender.name}</h3>
+                        <p class="title">${sender.title}</p>
                     </div>
                     
                     <div class="contact-info">
                         <table class="contact-table">
                             <tr class="contact-row">
                                 <td>
-                                    <a href="tel:+917858815579" class="contact-item">
-                                        📱 +917858815579
+                                    <a href="tel:${sender.phone}" class="contact-item">
+                                        📱 ${sender.phone}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="mailto:growth@tisorahbox.com" class="contact-item">
-                                        ✉️ growth@tisorahbox.com
+                                    <a href="mailto:${sender.email}" class="contact-item">
+                                        ✉️ ${sender.email}
                                     </a>
                                 </td>
                             </tr>
@@ -984,7 +1047,7 @@
             </div>`;
         }
         
-        function getThankYouTemplate(clientName, companyName) {
+        function getThankYouTemplate(clientName, companyName, sender) {
             return `<div class="email-container">
                 <div class="brand-stripe"></div>
                 
@@ -1027,22 +1090,22 @@
                 
                 <div class="footer">
                     <div class="signature">
-                        <h3>PIYUSH</h3>
+                        <h3>${sender.name}</h3>
                         <div style="width: 60px; height: 2px; background: #AB8E76; margin: 8px auto 15px;"></div>
-                        <p class="title">Senior Growth Manager | Tisorah Box</p>
+                        <p class="title">${sender.title}</p>
                     </div>
                     
                     <div class="contact-info">
                         <table class="contact-table">
                             <tr class="contact-row">
                                 <td>
-                                    <a href="tel:+917858815579" class="contact-item">
-                                        📱 +917858815579
+                                    <a href="tel:${sender.phone}" class="contact-item">
+                                        📱 ${sender.phone}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="mailto:growth@tisorahbox.com" class="contact-item">
-                                        ✉️ growth@tisorahbox.com
+                                    <a href="mailto:${sender.email}" class="contact-item">
+                                        ✉️ ${sender.email}
                                     </a>
                                 </td>
                             </tr>
@@ -1076,12 +1139,14 @@
             const clientName = document.getElementById('clientName').value || 'Client Name';
             const companyName = document.getElementById('companyName').value || 'Company Name';
             const emailType = document.querySelector('input[name="emailType"]:checked').value;
+            const senderType = document.querySelector('input[name="senderType"]:checked').value;
+            const sender = senderInfo[senderType];
             
             let template;
             if (emailType === 'thankyou') {
-                template = getThankYouTemplate(clientName, companyName);
+                template = getThankYouTemplate(clientName, companyName, sender);
             } else {
-                template = getIntroductionTemplate(clientName, companyName);
+                template = getIntroductionTemplate(clientName, companyName, sender);
             }
             
             document.getElementById('emailPreview').innerHTML = template;
@@ -1091,15 +1156,17 @@
             const clientName = document.getElementById('clientName').value || 'Client Name';
             const companyName = document.getElementById('companyName').value || 'Company Name';
             const emailType = document.querySelector('input[name="emailType"]:checked').value;
+            const senderType = document.querySelector('input[name="senderType"]:checked').value;
+            const sender = senderInfo[senderType];
             
             let emailContent;
             let title;
             
             if (emailType === 'thankyou') {
-                emailContent = getThankYouTemplate(clientName, companyName);
+                emailContent = getThankYouTemplate(clientName, companyName, sender);
                 title = 'Tisorah Box - Thank You';
             } else {
-                emailContent = getIntroductionTemplate(clientName, companyName);
+                emailContent = getIntroductionTemplate(clientName, companyName, sender);
                 title = 'Tisorah Box - Premium Corporate Gifting';
             }
             
