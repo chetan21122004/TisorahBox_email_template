@@ -182,10 +182,13 @@
         }
         
         .preview-section {
-            background: white;
+            background: #F4F4F4;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             overflow: hidden;
+            height: calc(100vh - 100px);
+            position: sticky;
+            top: 20px;
         }
         
         .preview-header {
@@ -195,6 +198,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-radius: 10px 10px 0 0;
         }
         
         .preview-header h3 {
@@ -223,16 +227,15 @@
         }
         
         .preview-content {
-            padding: 20px;
-            max-height: 80vh;
+            padding: 0;
+            height: calc(100% - 60px);
             overflow-y: auto;
-            background: #F4F4F4;
         }
         
         .email-preview {
-            display: flex;
-            justify-content: center;
             width: 100%;
+            min-height: 100%;
+            background: #FFFFFF;
         }
         
         .toast {
@@ -274,13 +277,15 @@
         /* Email template styles */
         .email-container {
             width: 100%;
-            max-width: 650px;
-            margin: 0 auto;
+            margin: 0;
             background: #FFFFFF;
-            box-shadow: 0 20px 40px rgba(30, 42, 71, 0.15);
-            border-radius: 0;
-            overflow: hidden;
             position: relative;
+        }
+        
+        /* When copying for email clients, these styles will be used */
+        #emailPreview .email-container {
+            max-width: none;
+            box-shadow: none;
         }
         
         .brand-stripe {
@@ -1180,7 +1185,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Poppins', Arial, sans-serif; background: #F4F4F4; padding: 20px 0; line-height: 1.6; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-        .email-container { width: 100%; max-width: 650px; margin: 0 auto; background: #FFFFFF; box-shadow: 0 20px 40px rgba(30, 42, 71, 0.15); border-radius: 0; overflow: hidden; position: relative; }
+        .email-container { width: 100% !important; max-width: 650px !important; margin: 0 auto !important; background: #FFFFFF !important; box-shadow: 0 20px 40px rgba(30, 42, 71, 0.15) !important; border-radius: 0 !important; overflow: hidden !important; position: relative !important; }
         .brand-stripe { height: 6px; background: linear-gradient(90deg, #AD9660 0%, #AB8E76 25%, #1E2A47 50%, #AB8E76 75%, #AD9660 100%); width: 100%; }
         .header { background: linear-gradient(135deg, #1E2A47 0%, #323433 100%); background-color: #1E2A47; padding: 30px 20px; text-align: center; width: 100%; }
         .logo-container { width: 100%; text-align: center; margin-bottom: 0; }
