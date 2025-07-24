@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TisorahBox Email Template Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;900&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+        
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .app-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #1E2A47 0%, #323433 100%);
+            color: white;
+            border-radius: 10px;
+        }
+        
+        .app-header h1 {
+            font-family: 'Frank Ruhl Libre', serif;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .app-header p {
+            color: #E6E2DD;
+            font-size: 14px;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .control-panel {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 20px;
+        }
+        
+        .control-panel h3 {
+            color: #1E2A47;
+            margin-bottom: 20px;
+            font-family: 'Frank Ruhl Libre', serif;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #323433;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #E6E2DD;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Poppins', Arial, sans-serif;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #AD9660;
+        }
+        
+        .template-type {
+            margin-bottom: 20px;
+        }
+        
+        .template-type label {
+            display: block;
+            margin-bottom: 10px;
+            color: #323433;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .template-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .template-option {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 2px solid #E6E2DD;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .template-option:hover {
+            border-color: #AD9660;
+            background: #fafafa;
+        }
+        
+        .template-option input[type="radio"] {
+            margin-right: 10px;
+            width: auto;
+        }
+        
+        .template-option.selected {
+            border-color: #AD9660;
+            background: #f9f8f6;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 25px;
+        }
+        
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+        
+        .btn-primary {
+            background: #1E2A47;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #323433;
+        }
+        
+        .btn-secondary {
+            background: #AD9660;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #AB8E76;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+        }
+        
+        .preview-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .preview-header {
+            background: #1E2A47;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .preview-header h3 {
+            font-family: 'Frank Ruhl Libre', serif;
+            font-size: 18px;
+        }
+        
+        .copy-btn {
+            background: #AD9660;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background: #AB8E76;
+        }
+        
+        .copy-btn.copied {
+            background: #28a745;
+        }
+        
+        .preview-content {
+            padding: 0;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .email-preview {
+            transform: scale(0.8);
+            transform-origin: top left;
+            width: 125%;
+        }
+        
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .toast.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        @media (max-width: 1200px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .control-panel {
+                position: relative;
+                top: 0;
+            }
+            
+            .email-preview {
+                transform: scale(1);
+                width: 100%;
+            }
+        }
+        
+        /* Email template styles */
+        .email-container {
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            box-shadow: 0 20px 40px rgba(30, 42, 71, 0.15);
+            border-radius: 0;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .brand-stripe {
+            height: 6px;
+            background: linear-gradient(90deg, #AD9660 0%, #AB8E76 25%, #1E2A47 50%, #AB8E76 75%, #AD9660 100%);
+            width: 100%;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1E2A47 0%, #323433 100%);
+            background-color: #1E2A47;
+            padding: 30px 20px;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .logo-container {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 0;
+        }
+        
+        .logo-text {
+            font-family: 'Frank Ruhl Libre', serif, Georgia;
+            font-size: 32px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            color: #FFFFFF;
+            margin: 0;
+            line-height: 1.2;
+            display: inline-block;
+        }
+        
+        .logo-ti {
+            color: #FFFFFF;
+        }
+        
+        .logo-box {
+            color: #AD9660;
+        }
+        
+        .tagline {
+            color: #E6E2DD;
+            font-size: 13px;
+            font-weight: 300;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: 8px;
+            text-align: center;
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+        
+        .content {
+            padding: 40px 30px;
+            background: #FFFFFF;
+        }
+        
+        .greeting {
+            margin-bottom: 30px;
+        }
+        
+        .greeting .name {
+            font-size: 18px;
+            font-weight: 500;
+            color: #1E2A47;
+            margin-bottom: 10px;
+        }
+        
+        .contact-name {
+            color: #AD9660;
+            font-weight: 600;
+        }
+        
+        .greeting .welcome {
+            color: #323433;
+            font-size: 15px;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+        
+        .main-text {
+            margin: 30px 0;
+        }
+        
+        .main-text p {
+            margin-bottom: 25px;
+            line-height: 1.7;
+            font-weight: 400;
+            color: #323433;
+            font-size: 16px;
+        }
+        
+        .brand-highlight {
+            color: #1E2A47;
+            font-weight: 500;
+            font-family: 'Frank Ruhl Libre', serif, Georgia;
+        }
+        
+        .features-box {
+            padding: 30px;
+            margin: 25px 0;
+            border-left: 4px solid #AD9660;
+            background: linear-gradient(135deg, #FAFAFA 0%, #F4F4F4 100%);
+            background-color: #F4F4F4;
+            position: relative;
+        }
+        
+        .features-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 1px;
+            height: 100%;
+            background: #C8C2B6;
+            opacity: 0.3;
+        }
+        
+        .feature-item {
+            margin-bottom: 20px;
+        }
+        
+        .feature-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .feature-title {
+            font-size: 15px;
+            color: #1E2A47;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+        
+        .feature-icon {
+            color: #AD9660;
+            margin-right: 8px;
+        }
+        
+        .feature-desc {
+            color: #323433;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+        
+        .cta-section {
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .cta-buttons {
+            text-align: center;
+        }
+        
+        .email-btn {
+            display: inline-block;
+            padding: 14px 28px;
+            margin: 8px 12px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: 'Poppins', Arial, sans-serif;
+            transition: all 0.3s ease;
+            border: none;
+            text-align: center;
+        }
+        
+        .email-btn-primary {
+            background: #1E2A47;
+            color: #F4F4F4 !important;
+            border-bottom: 3px solid #AD9660;
+        }
+        
+        .email-btn-primary:hover {
+            background: #323433;
+        }
+        
+        .email-btn-secondary {
+            background: transparent;
+            border: 1px solid #AD9660;
+            color: #AD9660 !important;
+        }
+        
+        .email-btn-secondary:hover {
+            background: #AD9660;
+            color: #F4F4F4 !important;
+        }
+        
+        .company-info {
+            margin: 35px 0;
+        }
+        
+        .company-info p {
+            margin-bottom: 20px;
+            line-height: 1.7;
+            font-weight: 400;
+            color: #323433;
+        }
+        
+        .company-info .sectors {
+            color: #1E2A47;
+            font-weight: 600;
+        }
+        
+        .website-link {
+            color: #AD9660 !important;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 2px solid rgba(173, 150, 96, 0.3);
+            padding-bottom: 1px;
+        }
+        
+        .website-link:hover {
+            border-bottom-color: #AD9660;
+        }
+        
+        .cta-box {
+            margin: 30px 0;
+            padding: 25px;
+            border-left: 4px solid #AD9660;
+            background: linear-gradient(135deg, #F4F4F4 0%, #E6E2DD 100%);
+            background-color: #F4F4F4;
+        }
+        
+        .cta-box p {
+            margin: 0;
+            line-height: 1.7;
+            font-weight: 500;
+            color: #1E2A47;
+            font-size: 16px;
+        }
+        
+        .form-cta {
+            margin: 35px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #1E2A47 0%, #323433 100%);
+            background-color: #1E2A47;
+            text-align: center;
+            border-radius: 0;
+        }
+        
+        .form-cta h3 {
+            color: #AD9660;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-family: 'Frank Ruhl Libre', serif, Georgia;
+        }
+        
+        .form-cta p {
+            color: #E6E2DD;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .btn-form {
+            background: #AD9660;
+            color: #FFFFFF !important;
+            padding: 16px 32px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+        }
+        
+        .btn-form:hover {
+            background: #AB8E76;
+            color: #FFFFFF !important;
+        }
+        
+        .stats-section {
+            background: linear-gradient(135deg, #F4F4F4 0%, #E6E2DD 100%);
+            background-color: #F4F4F4;
+            padding: 30px 20px;
+            width: 100%;
+        }
+        
+        .stats-table {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        
+        .stat-cell {
+            text-align: center;
+            padding: 15px 10px;
+            width: 33.33%;
+            vertical-align: middle;
+            border-right: 1px solid #C8C2B6;
+        }
+        
+        .stat-cell:last-child {
+            border-right: none;
+        }
+        
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E2A47;
+            font-family: 'Poppins', Arial, sans-serif;
+            margin-bottom: 5px;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #323433;
+            font-weight: 500;
+            font-family: 'Poppins', Arial, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: block;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #1E2A47 0%, #323433 100%);
+            background-color: #1E2A47;
+            color: #F4F4F4;
+            padding: 35px 30px;
+            text-align: center;
+        }
+        
+        .signature {
+            margin-bottom: 25px;
+        }
+        
+        .signature h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0 0 8px 0;
+            color: #AD9660;
+            letter-spacing: 1px;
+            font-family: 'Frank Ruhl Libre', serif, Georgia;
+        }
+        
+        .signature .title {
+            color: #C8C2B6;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        
+        .contact-info {
+            margin-top: 20px;
+        }
+        
+        .contact-table {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 20px;
+            border-collapse: collapse;
+        }
+        
+        .contact-row td {
+            text-align: center;
+            padding: 8px 15px;
+        }
+        
+        .contact-item {
+            color: #F4F4F4 !important;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 400;
+        }
+        
+        .contact-item:hover {
+            color: #AD9660 !important;
+        }
+        
+        .website-contact {
+            color: #AD9660 !important;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            border-bottom: 2px solid rgba(173, 150, 96, 0.3);
+            padding-bottom: 2px;
+        }
+        
+        .website-contact:hover {
+            border-bottom-color: #AD9660;
+        }
+        
+        .signature-note {
+            margin-top: 25px;
+        }
+        
+        .signature-note p {
+            color: #C8C2B6;
+            font-size: 14px;
+            font-weight: 300;
+            font-style: italic;
+            margin: 0;
+        }
+        
+        /* Thank you email specific styles */
+        .highlight-box {
+            padding: 30px;
+            margin: 25px 0;
+            border-left: 4px solid #AD9660;
+            background: linear-gradient(135deg, #FAFAFA 0%, #F4F4F4 100%);
+            background-color: #F4F4F4;
+            position: relative;
+        }
+        
+        .highlight-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 1px;
+            height: 100%;
+            background: #C8C2B6;
+            opacity: 0.3;
+        }
+        
+        .highlight-box p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+            font-weight: 400;
+            color: #323433;
+            font-size: 16px;
+        }
+        
+        .highlight-box p:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="app-header">
+            <h1>TisorahBox Email Template Generator</h1>
+            <p>Create personalized email templates for your clients</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="control-panel">
+                <h3>Email Details</h3>
+                
+                <div class="form-group">
+                    <label for="clientName">Client Name:</label>
+                    <input type="text" id="clientName" placeholder="e.g., Avinash" value="Avinash">
+                </div>
+                
+                <div class="form-group">
+                    <label for="companyName">Company Name:</label>
+                    <input type="text" id="companyName" placeholder="e.g., Siemens- Balewadi" value="Siemens- Balewadi">
+                </div>
+                
+                <div class="template-type">
+                    <label>Email Type:</label>
+                    <div class="template-options">
+                        <div class="template-option selected" data-type="introduction">
+                            <input type="radio" name="emailType" value="introduction" checked>
+                            <div>
+                                <strong>Introduction Email</strong><br>
+                                <small>For new client outreach</small>
+                            </div>
+                        </div>
+                        <div class="template-option" data-type="thankyou">
+                            <input type="radio" name="emailType" value="thankyou">
+                            <div>
+                                <strong>Thank You Email</strong><br>
+                                <small>Post-meeting follow-up</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="updatePreview()">Update Preview</button>
+                    <button class="btn btn-secondary" onclick="copyToClipboard()">Copy HTML</button>
+                    <button class="btn btn-success" onclick="downloadHTML()">Download HTML</button>
+                </div>
+            </div>
+            
+            <div class="preview-section">
+                <div class="preview-header">
+                    <h3>Email Preview</h3>
+                    <button class="copy-btn" onclick="copyToClipboard()">Copy HTML</button>
+                </div>
+                <div class="preview-content">
+                    <div class="email-preview" id="emailPreview">
+                        <!-- Email content will be generated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="toast" id="toast">HTML copied to clipboard!</div>
+    
+    <script>
+        // Template options event listeners
+        document.querySelectorAll('.template-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.template-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                this.querySelector('input[type="radio"]').checked = true;
+                updatePreview();
+            });
+        });
+        
+        // Auto-update preview when typing
+        document.getElementById('clientName').addEventListener('input', updatePreview);
+        document.getElementById('companyName').addEventListener('input', updatePreview);
+        
+        function getIntroductionTemplate(clientName, companyName) {
+            return `<div class="email-container">
+                <div class="brand-stripe"></div>
+                
+                <div class="header">
+                    <div class="logo-container">
+                        <h1 class="logo-text">
+                            <span class="logo-ti">Tisorah</span><span class="logo-box">Box</span>
+                        </h1>
+                        <div class="tagline">Premium Corporate Gifts</div>
+                    </div>
+                </div>
+                
+                <div class="content">
+                    <div class="greeting">
+                        <p class="name">
+                            Dear <span class="contact-name">${clientName}</span>,
+                        </p>
+                        <p class="welcome">I hope this email finds you well.</p>
+                    </div>
+                    
+                    <div class="main-text">
+                        <p>
+                            With the festive season approaching, I wanted to introduce 
+                            <span class="brand-highlight">TisorahBox</span> — your partner for premium 
+                            corporate gifting solutions that help strengthen business relationships and 
+                            celebrate your team's achievements.
+                        </p>
+                        <p>Here's what we offer:</p>
+                    </div>
+                    
+                    <div class="features-box">
+                        <div class="feature-item">
+                            <h4 class="feature-title">
+                                <span class="feature-icon">◆</span>
+                                Bespoke Curation
+                            </h4>
+                            <p class="feature-desc">
+                                Our gifting experts work closely with you to curate the perfect gift set 
+                                aligned with your brand ethos, budget, and occasion.
+                            </p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <h4 class="feature-title">
+                                <span class="feature-icon">◆</span>
+                                Premium Product Selection
+                            </h4>
+                            <p class="feature-desc">
+                                Wellness, gourmet, home and office utility gifts — all handpicked for 
+                                quality and aesthetics.
+                            </p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <h4 class="feature-title">
+                                <span class="feature-icon">◆</span>
+                                Customisation Excellence
+                            </h4>
+                            <p class="feature-desc">
+                                Branding on products, packaging, and message inserts to reflect your 
+                                company's identity with Art Deco elegance.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="cta-section">
+                        <div class="cta-buttons">
+                            <a href="https://drive.google.com/file/d/1z768XbXOPHmI21ssvaZcBg1FIY3_VXzT/view?usp=sharing" 
+                               class="email-btn email-btn-primary" target="_blank">
+                                View Diwali Catalogue
+                            </a>
+                            <a href="https://www.tisorahbox.com/" 
+                               class="email-btn email-btn-secondary" target="_blank">
+                                Explore Collection
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="company-info">
+                        <p>
+                            We proudly serve clients from <span class="sectors">Manufacturing, BFSI, IT, Real Estate</span>, 
+                            and other sectors — offering both festive gifting and year-round solutions for new joiners, 
+                            client appreciation, employee milestones, and more.
+                        </p>
+                        <p>
+                            Explore our work at: 
+                            <a href="https://www.tisorahbox.com/" class="website-link" target="_blank">
+                                www.tisorahbox.com
+                            </a>
+                        </p>
+                    </div>
+                    
+                    <div class="form-cta">
+                        <h3>Share Your Requirements</h3>
+                        <p>Help us understand your gifting needs better by filling out our quick requirement form.</p>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLScJv4fkiNfZgLqIzr_HG9EyLofEhNC9V_h8Ax_TIxPDbOwrJA/viewform?usp=dialog" 
+                           class="btn-form" target="_blank">
+                            Fill Requirement Form
+                        </a>
+                    </div>
+                    
+                    <div class="cta-box">
+                        <p>
+                            Would love to schedule a quick call or presentation based on your upcoming 
+                            gifting needs for <span class="brand-highlight">${companyName}</span>.
+                        </p>
+                    </div>
+                    
+                    <div class="cta-section">
+                        <div class="cta-buttons">
+                            <a href="https://calendly.com/piyushanand6789/30min" 
+                               class="email-btn email-btn-primary" target="_blank">
+                                Schedule a Call
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-section">
+                    <table class="stats-table">
+                        <tr>
+                            <td class="stat-cell">
+                                <span class="stat-number">3+</span>
+                                <span class="stat-label">Years Excellence</span>
+                            </td>
+                            <td class="stat-cell">
+                                <span class="stat-number">40K+</span>
+                                <span class="stat-label">Luxury Boxes</span>
+                            </td>
+                            <td class="stat-cell">
+                                <span class="stat-number">30+</span>
+                                <span class="stat-label">Elite Clients</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="footer">
+                    <div class="signature">
+                        <h3>PIYUSH</h3>
+                        <p class="title">Senior Growth Manager | Tisorah Box</p>
+                    </div>
+                    
+                    <div class="contact-info">
+                        <table class="contact-table">
+                            <tr class="contact-row">
+                                <td>
+                                    <a href="tel:+917858815579" class="contact-item">
+                                        📱 +917858815579
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="mailto:growth@tisorahbox.com" class="contact-item">
+                                        ✉️ growth@tisorahbox.com
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <div class="website-row">
+                            <a href="https://www.tisorahbox.com/" class="website-contact" target="_blank">
+                                🌐 www.tisorahbox.com
+                            </a>
+                        </div>
+                        
+                        <div class="website-row">
+                            <a href="https://www.linkedin.com/company/tisorahbox/posts/?feedView=all" class="website-contact" target="_blank">
+                                in Follow us on LinkedIn
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="signature-note">
+                        <p>Warm regards,</p>
+                        <br>
+                        <p style="color: #C8C2B6; font-size: 13px; font-style: normal; line-height: 1.5;">
+                            P.S. If I'm not reaching the right person for corporate gifting decisions, 
+                            I'd greatly appreciate it if you could kindly refer me to the appropriate team member. 
+                            Thank you for your assistance!
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="brand-stripe"></div>
+            </div>`;
+        }
+        
+        function getThankYouTemplate(clientName, companyName) {
+            return `<div class="email-container">
+                <div class="brand-stripe"></div>
+                
+                <div class="header">
+                    <div class="logo-container">
+                        <h1 class="logo-text">
+                            <span class="logo-ti">Tisorah</span><span class="logo-box">Box</span>
+                        </h1>
+                        <div class="tagline">Premium Corporate Gifts</div>
+                    </div>
+                </div>
+                
+                <div class="content">
+                    <div class="greeting">
+                        <p class="name">
+                            Dear <span class="contact-name">${clientName}</span>,
+                        </p>
+                        <p class="welcome">Thank you for taking the time to meet with us and share your valuable insights.</p>
+                    </div>
+                    
+                    <div class="main-text">
+                        <p>
+                            We truly appreciate your detailed feedback and requirements. Your insights have been incredibly helpful 
+                            in understanding exactly what would work best for your team this Diwali season.
+                        </p>
+                        
+                        <p>
+                            Our team is now working on the final curation based on our discussion. We will get back to you with 
+                            the complete selection and detailed pricing by early next week.
+                        </p>
+                    </div>
+                    
+                    <div class="main-text">
+                        <p style="text-align: center; margin-top: 30px;">
+                            <em>Thank you again for your time and trust in <span class="brand-highlight">TisorahBox</span>. 
+                            We look forward to presenting you with the perfect gifting solution.</em>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="footer">
+                    <div class="signature">
+                        <h3>PIYUSH</h3>
+                        <div style="width: 60px; height: 2px; background: #AB8E76; margin: 8px auto 15px;"></div>
+                        <p class="title">Senior Growth Manager | Tisorah Box</p>
+                    </div>
+                    
+                    <div class="contact-info">
+                        <table class="contact-table">
+                            <tr class="contact-row">
+                                <td>
+                                    <a href="tel:+917858815579" class="contact-item">
+                                        📱 +917858815579
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="mailto:growth@tisorahbox.com" class="contact-item">
+                                        ✉️ growth@tisorahbox.com
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <div class="website-row">
+                            <a href="https://www.tisorahbox.com/" class="website-contact" target="_blank">
+                                🌐 www.tisorahbox.com
+                            </a>
+                        </div>
+                        
+                        <div class="website-row">
+                            <a href="https://www.linkedin.com/company/tisorahbox/posts/?feedView=all" class="website-contact" target="_blank">
+                                in Follow us on LinkedIn
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 25px;">
+                        <p style="color: #C8C2B6; font-size: 14px; font-weight: 300; font-style: italic; margin: 0;">
+                            Warm regards,
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="brand-stripe"></div>
+            </div>`;
+        }
+        
+        function updatePreview() {
+            const clientName = document.getElementById('clientName').value || 'Client Name';
+            const companyName = document.getElementById('companyName').value || 'Company Name';
+            const emailType = document.querySelector('input[name="emailType"]:checked').value;
+            
+            let template;
+            if (emailType === 'thankyou') {
+                template = getThankYouTemplate(clientName, companyName);
+            } else {
+                template = getIntroductionTemplate(clientName, companyName);
+            }
+            
+            document.getElementById('emailPreview').innerHTML = template;
+        }
+        
+        function getFullHTML() {
+            const clientName = document.getElementById('clientName').value || 'Client Name';
+            const companyName = document.getElementById('companyName').value || 'Company Name';
+            const emailType = document.querySelector('input[name="emailType"]:checked').value;
+            
+            let emailContent;
+            let title;
+            
+            if (emailType === 'thankyou') {
+                emailContent = getThankYouTemplate(clientName, companyName);
+                title = 'Tisorah Box - Thank You';
+            } else {
+                emailContent = getIntroductionTemplate(clientName, companyName);
+                title = 'Tisorah Box - Premium Corporate Gifting';
+            }
+            
+            return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${title}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;900&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', Arial, sans-serif; background: #F4F4F4; padding: 20px 0; line-height: 1.6; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+        .email-container { width: 100%; max-width: 650px; margin: 0 auto; background: #FFFFFF; box-shadow: 0 20px 40px rgba(30, 42, 71, 0.15); border-radius: 0; overflow: hidden; position: relative; }
+        .brand-stripe { height: 6px; background: linear-gradient(90deg, #AD9660 0%, #AB8E76 25%, #1E2A47 50%, #AB8E76 75%, #AD9660 100%); width: 100%; }
+        .header { background: linear-gradient(135deg, #1E2A47 0%, #323433 100%); background-color: #1E2A47; padding: 30px 20px; text-align: center; width: 100%; }
+        .logo-container { width: 100%; text-align: center; margin-bottom: 0; }
+        .logo-text { font-family: 'Frank Ruhl Libre', serif, Georgia; font-size: 32px; font-weight: 500; letter-spacing: 2px; color: #FFFFFF; margin: 0; line-height: 1.2; display: inline-block; }
+        .logo-ti { color: #FFFFFF; }
+        .logo-box { color: #AD9660; }
+        .tagline { color: #E6E2DD; font-size: 13px; font-weight: 300; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 8px; text-align: center; font-family: 'Poppins', Arial, sans-serif; }
+        .content { padding: 40px 30px; background: #FFFFFF; }
+        .greeting { margin-bottom: 30px; }
+        .greeting .name { font-size: 18px; font-weight: 500; color: #1E2A47; margin-bottom: 10px; }
+        .contact-name { color: #AD9660; font-weight: 600; }
+        .greeting .welcome { color: #323433; font-size: 15px; font-weight: 300; line-height: 1.6; }
+        .main-text { margin: 30px 0; }
+        .main-text p { margin-bottom: 25px; line-height: 1.7; font-weight: 400; color: #323433; font-size: 16px; }
+        .brand-highlight { color: #1E2A47; font-weight: 500; font-family: 'Frank Ruhl Libre', serif, Georgia; }
+        .features-box { padding: 30px; margin: 25px 0; border-left: 4px solid #AD9660; background: linear-gradient(135deg, #FAFAFA 0%, #F4F4F4 100%); background-color: #F4F4F4; position: relative; }
+        .features-box::after { content: ''; position: absolute; top: 0; right: 0; width: 1px; height: 100%; background: #C8C2B6; opacity: 0.3; }
+        .feature-item { margin-bottom: 20px; }
+        .feature-item:last-child { margin-bottom: 0; }
+        .feature-title { font-size: 15px; color: #1E2A47; font-weight: 600; margin-bottom: 8px; font-family: 'Poppins', Arial, sans-serif; }
+        .feature-icon { color: #AD9660; margin-right: 8px; }
+        .feature-desc { color: #323433; font-size: 14px; font-weight: 400; line-height: 1.6; }
+        .cta-section { text-align: center; margin: 15px 0; }
+        .cta-buttons { text-align: center; }
+        .email-btn { display: inline-block; padding: 14px 28px; margin: 8px 12px; text-decoration: none; font-weight: 500; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; font-family: 'Poppins', Arial, sans-serif; transition: all 0.3s ease; border: none; text-align: center; }
+        .email-btn-primary { background: #1E2A47; color: #F4F4F4 !important; border-bottom: 3px solid #AD9660; }
+        .email-btn-primary:hover { background: #323433; }
+        .email-btn-secondary { background: transparent; border: 1px solid #AD9660; color: #AD9660 !important; }
+        .email-btn-secondary:hover { background: #AD9660; color: #F4F4F4 !important; }
+        .company-info { margin: 35px 0; }
+        .company-info p { margin-bottom: 20px; line-height: 1.7; font-weight: 400; color: #323433; }
+        .company-info .sectors { color: #1E2A47; font-weight: 600; }
+        .website-link { color: #AD9660 !important; text-decoration: none; font-weight: 500; border-bottom: 2px solid rgba(173, 150, 96, 0.3); padding-bottom: 1px; }
+        .website-link:hover { border-bottom-color: #AD9660; }
+        .cta-box { margin: 30px 0; padding: 25px; border-left: 4px solid #AD9660; background: linear-gradient(135deg, #F4F4F4 0%, #E6E2DD 100%); background-color: #F4F4F4; }
+        .cta-box p { margin: 0; line-height: 1.7; font-weight: 500; color: #1E2A47; font-size: 16px; }
+        .form-cta { margin: 35px 0; padding: 30px; background: linear-gradient(135deg, #1E2A47 0%, #323433 100%); background-color: #1E2A47; text-align: center; border-radius: 0; }
+        .form-cta h3 { color: #AD9660; font-size: 18px; font-weight: 600; margin-bottom: 15px; font-family: 'Frank Ruhl Libre', serif, Georgia; }
+        .form-cta p { color: #E6E2DD; font-size: 15px; line-height: 1.6; margin-bottom: 20px; }
+        .btn-form { background: #AD9660; color: #FFFFFF !important; padding: 16px 32px; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; display: inline-block; border: none; }
+        .btn-form:hover { background: #AB8E76; color: #FFFFFF !important; }
+        .stats-section { background: linear-gradient(135deg, #F4F4F4 0%, #E6E2DD 100%); background-color: #F4F4F4; padding: 30px 20px; width: 100%; }
+        .stats-table { width: 100%; max-width: 500px; margin: 0 auto; border-collapse: collapse; }
+        .stat-cell { text-align: center; padding: 15px 10px; width: 33.33%; vertical-align: middle; border-right: 1px solid #C8C2B6; }
+        .stat-cell:last-child { border-right: none; }
+        .stat-number { font-size: 28px; font-weight: 700; color: #1E2A47; font-family: 'Poppins', Arial, sans-serif; margin-bottom: 5px; display: block; }
+        .stat-label { font-size: 12px; color: #323433; font-weight: 500; font-family: 'Poppins', Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.5px; display: block; }
+        .footer { background: linear-gradient(135deg, #1E2A47 0%, #323433 100%); background-color: #1E2A47; color: #F4F4F4; padding: 35px 30px; text-align: center; }
+        .signature { margin-bottom: 25px; }
+        .signature h3 { font-size: 28px; font-weight: 700; margin: 0 0 8px 0; color: #AD9660; letter-spacing: 1px; font-family: 'Frank Ruhl Libre', serif, Georgia; }
+        .signature .title { color: #C8C2B6; font-size: 14px; font-weight: 400; letter-spacing: 0.5px; }
+        .contact-info { margin-top: 20px; }
+        .contact-table { width: 100%; max-width: 400px; margin: 0 auto 20px; border-collapse: collapse; }
+        .contact-row td { text-align: center; padding: 8px 15px; }
+        .contact-item { color: #F4F4F4 !important; text-decoration: none; font-size: 15px; font-weight: 400; }
+        .contact-item:hover { color: #AD9660 !important; }
+        .website-contact { color: #AD9660 !important; text-decoration: none; font-size: 16px; font-weight: 500; border-bottom: 2px solid rgba(173, 150, 96, 0.3); padding-bottom: 2px; }
+        .website-contact:hover { border-bottom-color: #AD9660; }
+        .signature-note { margin-top: 25px; }
+        .signature-note p { color: #C8C2B6; font-size: 14px; font-weight: 300; font-style: italic; margin: 0; }
+        @media (max-width: 600px) {
+            .email-container { margin: 0 10px; }
+            .header, .content, .footer { padding: 25px 20px; }
+            .logo-text { font-size: 28px; letter-spacing: 1px; }
+            .tagline { font-size: 12px; }
+            .email-btn { display: block; margin: 10px auto; max-width: 280px; }
+            .contact-table { width: 100%; }
+            .contact-row td { display: block; width: 100%; padding: 10px 0; }
+            .stat-cell { display: block; width: 100%; border-right: none; border-bottom: 1px solid #C8C2B6; padding: 20px 10px; }
+            .stat-cell:last-child { border-bottom: none; }
+        }
+    </style>
+</head>
+<body>
+    ${emailContent}
+</body>
+</html>`;
+        }
+        
+        function copyToClipboard() {
+            const htmlContent = getFullHTML();
+            
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(htmlContent).then(() => {
+                    showToast();
+                    updateCopyButton();
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                    fallbackCopyTextToClipboard(htmlContent);
+                });
+            } else {
+                fallbackCopyTextToClipboard(htmlContent);
+            }
+        }
+        
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast();
+                    updateCopyButton();
+                }
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+        
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        function updateCopyButton() {
+            const copyBtn = document.querySelector('.copy-btn');
+            const originalText = copyBtn.textContent;
+            
+            copyBtn.textContent = 'Copied!';
+            copyBtn.classList.add('copied');
+            
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+                copyBtn.classList.remove('copied');
+            }, 2000);
+        }
+        
+        function downloadHTML() {
+            const htmlContent = getFullHTML();
+            const clientName = document.getElementById('clientName').value || 'Client';
+            const emailType = document.querySelector('input[name="emailType"]:checked').value;
+            const filename = `TisorahBox_${emailType}_${clientName.replace(/\s+/g, '_')}.html`;
+            
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            
+            a.style.display = 'none';
+            a.href = url;
+            a.download = filename;
+            
+            document.body.appendChild(a);
+            a.click();
+            
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+        
+        // Initialize the preview
+        updatePreview();
+    </script>
+</body>
+</html>
