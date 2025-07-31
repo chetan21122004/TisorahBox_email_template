@@ -788,6 +788,13 @@
                                 <small>Post-meeting follow-up</small>
                             </div>
                         </div>
+                        <div class="template-option" data-type="reminder">
+                            <input type="radio" name="emailType" value="reminder">
+                            <div>
+                                <strong>Reminder Email</strong><br>
+                                <small>Follow-up for previous contacts</small>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -844,7 +851,7 @@
                 title: 'Senior Growth Manager | Tisorah Box',
                 phone: '+917858815579',
                 email: 'growth@tisorahbox.com',
-                catalogueLink: 'https://docs.google.com/presentation/d/1mp86-PJt4WgEPFnX1-Xi5fhnmDtsGfXn/edit?usp=sharing&ouid=105267299731462480935&rtpof=true&sd=true',
+                catalogueLink: 'https://drive.google.com/file/d/1kYMi5Sj_aNugQV4ehrcwV-EDD4G7kM-p/view?usp=sharing',
                 calendlyLink: 'https://calendly.com/piyushanand6789/30min'
             },
             ryna: {
@@ -852,7 +859,7 @@
                 title: 'Sales Representative | Tisorah Box',
                 phone: '+917009899989',
                 email: 'demand@tisorahbox.com',
-                catalogueLink: 'https://docs.google.com/presentation/d/1vRV5uj03uKl1f6n-gLpeQ2S4GM23jQIX/edit?usp=sharing&ouid=105267299731462480935&rtpof=true&sd=true',
+                catalogueLink: 'https://drive.google.com/file/d/18FWkXrD0FeGxY6JPEVECHsEqeRxb0yve/view?usp=sharing',
                 calendlyLink: 'https://calendly.com/piyushanand6789/30min'
             },
             soumya: {
@@ -860,7 +867,7 @@
                 title: 'Sales Representative | Tisorah Box',
                 phone: '+918890842016',
                 email: 'sales@tisorahbox.com',
-                catalogueLink: 'https://docs.google.com/presentation/d/1hNzyTckZt53aA45Wr-ZG5af3IR15tDaE/edit?usp=sharing&ouid=105267299731462480935&rtpof=true&sd=true ',
+                catalogueLink: 'https://drive.google.com/file/d/1zEAwH73SQrh72kpU-4Y0ArKJ7wYNzDvy/view?usp=sharing',
                 calendlyLink: 'https://calendly.com/piyushanand6789/30min'
             }
         };
@@ -1141,6 +1148,183 @@
             </div>`;
         }
         
+        function getReminderTemplate(clientName, companyName, sender) {
+            return `<div class="email-container">
+                <div class="brand-stripe"></div>
+                
+                <div class="header">
+                    <div class="logo-container">
+                        <h1 class="logo-text">
+                            <span class="logo-ti">Tisorah</span><span class="logo-box">Box</span>
+                        </h1>
+                        <div class="tagline">Premium Corporate Gifts</div>
+                    </div>
+                </div>
+                
+                <div class="content">
+                    <div class="greeting">
+                        <p class="name">
+                            Dear <span class="contact-name">${clientName}</span>,
+                        </p>
+                        <p class="welcome">I hope this message finds you well.</p>
+                    </div>
+                    
+                    <div class="main-text">
+                        <p>
+                            I wanted to follow up on our previous conversation about corporate gifting solutions 
+                            for <span class="brand-highlight">${companyName}</span>. As we approach the festive season, 
+                            I thought this would be the perfect time to revisit your gifting requirements.
+                        </p>
+                        
+                        <p>
+                            Since our last interaction, we've expanded our offerings and refined our curation process 
+                            to better serve our clients. I believe our latest collection would be particularly well-suited 
+                            for your team and business relationships.
+                        </p>
+                    </div>
+                    
+                    <div class="features-box">
+                        <div class="feature-item">
+                            <h4 class="feature-title">
+                                <span class="feature-icon">◆</span>
+                                Updated Diwali Collection
+                            </h4>
+                            <p class="feature-desc">
+                                Fresh, premium gifts curated specifically for this festive season, 
+                                including wellness hampers, gourmet selections, and elegant corporate sets.
+                            </p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <h4 class="feature-title">
+                                <span class="feature-icon">◆</span>
+                                Enhanced Customization
+                            </h4>
+                            <p class="feature-desc">
+                                More sophisticated branding options and packaging choices to perfectly 
+                                align with your company's brand identity and values.
+                            </p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <h4 class="feature-title">
+                                <span class="feature-icon">◆</span>
+                                Streamlined Process
+                            </h4>
+                            <p class="feature-desc">
+                                Faster turnaround times and improved logistics to ensure your gifts 
+                                reach their destinations well before the festivities begin.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="cta-section">
+                        <div class="cta-buttons">
+                            <a href="${sender.catalogueLink}" 
+                               class="email-btn email-btn-primary" target="_blank">
+                                View Latest Catalogue
+                            </a>
+                            <a href="https://www.tisorahbox.com/" 
+                               class="email-btn email-btn-secondary" target="_blank">
+                                Explore New Collection
+                            </a>
+                        </div>
+                    </div>
+                    
+                                        <div class="cta-box">
+                        <p>
+                            Would you be interested in reconnecting for a brief discussion about your 
+                            upcoming gifting plans for <span class="brand-highlight">${companyName}</span>? 
+                            I can share some exciting new options that weren't available during our last conversation.
+                        </p>
+                    </div>
+                    
+                    <div class="cta-section">
+                        <div class="cta-buttons">
+                            <a href="${sender.calendlyLink}" 
+                               class="email-btn email-btn-primary" target="_blank">
+                                Schedule Quick Call
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="main-text">
+                        <p style="font-style: italic; text-align: center; color: #1E2A47; margin-top: 30px;">
+                            Looking forward to continuing our conversation and helping make this festive season 
+                            memorable for your team and clients.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="stats-section">
+                    <table class="stats-table">
+                        <tr>
+                            <td class="stat-cell">
+                                <span class="stat-number">3+</span>
+                                <span class="stat-label">Years Excellence</span>
+                            </td>
+                            <td class="stat-cell">
+                                <span class="stat-number">40K+</span>
+                                <span class="stat-label">Luxury Boxes</span>
+                            </td>
+                            <td class="stat-cell">
+                                <span class="stat-number">30+</span>
+                                <span class="stat-label">Elite Clients</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="footer">
+                    <div class="signature">
+                        <h3>${sender.name}</h3>
+                        <p class="title">${sender.title}</p>
+                    </div>
+                    
+                    <div class="contact-info">
+                        <table class="contact-table">
+                            <tr class="contact-row">
+                                <td>
+                                    <a href="tel:${sender.phone}" class="contact-item">
+                                        📱 ${sender.phone}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="mailto:${sender.email}" class="contact-item">
+                                        ✉️ ${sender.email}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <div class="website-row">
+                            <a href="https://www.tisorahbox.com/" class="website-contact" target="_blank">
+                                🌐 www.tisorahbox.com
+                            </a>
+                        </div>
+                        
+                        <div class="website-row">
+                            <a href="https://www.linkedin.com/company/tisorahbox/posts/?feedView=all" class="website-contact" target="_blank">
+                                in Follow us on LinkedIn
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="signature-note">
+                        <p>Warm regards,</p>
+                        <br>
+                        <p style="color: #C8C2B6; font-size: 13px; font-style: normal; line-height: 1.5;">
+                            P.S. I understand everyone's schedule gets busy during the festive season. 
+                            Even a quick 10-minute call would be valuable to understand your current priorities 
+                            and see how we can best support your gifting needs.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="brand-stripe"></div>
+            </div>`;
+        }
+        
         function updatePreview() {
             const clientName = document.getElementById('clientName').value || 'Client Name';
             const companyName = document.getElementById('companyName').value || 'Company Name';
@@ -1151,6 +1335,8 @@
             let template;
             if (emailType === 'thankyou') {
                 template = getThankYouTemplate(clientName, companyName, sender);
+            } else if (emailType === 'reminder') {
+                template = getReminderTemplate(clientName, companyName, sender);
             } else {
                 template = getIntroductionTemplate(clientName, companyName, sender);
             }
@@ -1171,6 +1357,9 @@
             if (emailType === 'thankyou') {
                 emailContent = getThankYouTemplate(clientName, companyName, sender);
                 title = 'Tisorah Box - Thank You';
+            } else if (emailType === 'reminder') {
+                emailContent = getReminderTemplate(clientName, companyName, sender);
+                title = 'Tisorah Box - Follow-up Reminder';
             } else {
                 emailContent = getIntroductionTemplate(clientName, companyName, sender);
                 title = 'Tisorah Box - Premium Corporate Gifting';
