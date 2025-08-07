@@ -1244,95 +1244,93 @@
                 <div class="brand-stripe"></div>
             </div>`;
         }
-        
         function getAfterCallTemplate(clientName, companyName, sender) {
-            return `<div class="email-container">
-                <div class="brand-stripe"></div>
-                
-                <div class="header">
-                    <div class="logo-container">
-                        <h1 class="logo-text">
-                            <span class="logo-ti">Tisorah</span><span class="logo-box">Box</span>
-                        </h1>
-                        <div class="tagline">Premium Corporate Gifts</div>
-                    </div>
-                </div>
-                
-                <div class="content">
-                    <div class="greeting">
-                        <p class="name">
-                            Dear <span class="contact-name">${clientName}</span>,
-                        </p>
-                        <p class="welcome">Thank you for taking the time to connect earlier.</p>
-                    </div>
-                    
-                    <div class="main-text">
-                        <p>
-                            As discussed, I've attached our latest catalogue featuring premium corporate gifting solutions that would be perfect for <span class="brand-highlight">${companyName}</span>. I believe you'll find some excellent options that align with your requirements.
-                        </p>
-                        <p>
-                            I'd love to schedule a brief face-to-face meeting to discuss the options in detail and understand your specific preferences. This way, we can ensure we create the perfect gifting solution for your team.
-                        </p>
-                    </div>
-                    
-                    <div class="cta-section">
-                        <div class="cta-buttons">
-                            <a href="${sender.catalogueLink}" 
-                               class="email-btn email-btn-primary" target="_blank">
-                                View Catalogue
-                            </a>
-                            <a href="${sender.calendlyLink}" 
-                               class="email-btn email-btn-secondary" target="_blank">
-                                Schedule Meeting
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="footer">
-                    <div class="signature">
-                        <h3>${sender.name}</h3>
-                        <p class="title">${sender.title}</p>
-                    </div>
-                    
-                    <div class="contact-info">
-                        <table class="contact-table">
-                            <tr class="contact-row">
-                                <td>
-                                    <a href="tel:${sender.phone}" class="contact-item">
-                                        📱 ${sender.phone}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="mailto:${sender.email}" class="contact-item">
-                                        ✉️ ${sender.email}
-                                    </a>
-                                </td>
-                            </tr>
-                        </table>
-                        
-                        <div class="website-row">
-                            <a href="https://www.tisorahbox.com/" class="website-contact" target="_blank">
-                                🌐 www.tisorahbox.com
-                            </a>
-                        </div>
-                        
-                        <div class="website-row">
-                            <a href="https://www.linkedin.com/company/tisorahbox/posts/?feedView=all" class="website-contact" target="_blank">
-                                in Follow us on LinkedIn
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="signature-note">
-                        <p>Best regards,</p>
-                    </div>
-                </div>
-                
-                <div class="brand-stripe"></div>
-            </div>`;
-        }
+    return `<div class="email-container">
+        <div class="brand-stripe"></div>
         
+        <div class="header">
+            <div class="logo-container">
+                <h1 class="logo-text">
+                    <span class="logo-ti">Tisorah</span><span class="logo-box">Box</span>
+                </h1>
+                <div class="tagline">Premium Corporate Gifts</div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="greeting">
+                <p class="name">
+                    Dear <span class="contact-name">${clientName}</span>,
+                </p>
+                <p class="welcome">Thank you for taking the time to connect earlier.</p>
+            </div>
+            
+            <div class="main-text">
+                <p>
+                    As discussed, I've attached our latest catalogue featuring premium corporate gifting solutions that would be perfect for <span class="brand-highlight">${companyName}</span>. I believe you'll find some excellent options that align with your requirements. You can also explore our complete collection at <a href="https://www.tisorahbox.com/" class="website-link" target="_blank">www.tisorahbox.com</a>.
+                </p>
+                <p>
+                    I'd love to schedule a brief face-to-face meeting to discuss the options in detail and understand your specific preferences. This way, we can ensure we create the perfect gifting solution for your team.
+                </p>
+            </div>
+            
+            <div class="cta-section">
+                <div class="cta-buttons">
+                    <a href="${sender.catalogueLink}" 
+                       class="email-btn email-btn-primary" target="_blank">
+                        View Catalogue
+                    </a>
+                    <a href="${sender.calendlyLink}" 
+                       class="email-btn email-btn-secondary" target="_blank">
+                        Schedule Meeting
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="signature">
+                <h3>${sender.name}</h3>
+                <p class="title">${sender.title}</p>
+            </div>
+            
+            <div class="contact-info">
+                <table class="contact-table">
+                    <tr class="contact-row">
+                        <td>
+                            <a href="tel:${sender.phone}" class="contact-item">
+                                📱 ${sender.phone}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="mailto:${sender.email}" class="contact-item">
+                                ✉️ ${sender.email}
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                
+                <div class="website-row">
+                    <a href="https://www.tisorahbox.com/" class="website-contact" target="_blank">
+                        🌐 www.tisorahbox.com
+                    </a>
+                </div>
+                
+                <div class="website-row">
+                    <a href="https://www.linkedin.com/company/tisorahbox/posts/?feedView=all" class="website-contact" target="_blank">
+                        in Follow us on LinkedIn
+                    </a>
+                </div>
+            </div>
+            
+            <div class="signature-note">
+                <p>Best regards,</p>
+            </div>
+        </div>
+        
+        <div class="brand-stripe"></div>
+    </div>`;
+}
         function updatePreview() {
             const clientName = document.getElementById('clientName').value || 'Client Name';
             const companyName = document.getElementById('companyName').value || 'Company Name';
