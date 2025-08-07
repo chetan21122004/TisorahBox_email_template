@@ -903,7 +903,7 @@
                     
                     <div class="main-text">
                         <p>
-                            I'm reaching out from <span class="brand-highlight">TisorahBox</span> to request a brief 15-minute meeting to discuss premium corporate gifting solutions for <span class="brand-highlight">${companyName}</span>.
+                            I'm reaching out from <span class="brand-highlight">TisorahBox</span> to request a face-to-face meeting to discuss premium corporate gifting solutions for <span class="brand-highlight">${companyName}</span>. I would love to visit your office and showcase our premium corporate gift collections in person.
                         </p>
                         <p>
                             We specialize in creating memorable corporate gifts that strengthen business relationships - from festive hampers to year-round appreciation gifts. You can explore our work at <a href="https://www.tisorahbox.com/" class="website-link" target="_blank">www.tisorahbox.com</a>.
@@ -912,7 +912,7 @@
                     
                     <div class="cta-box">
                         <p>
-                            Would you be available for a quick discussion this week? I'd love to understand your gifting needs and share some tailored suggestions.
+                            Would you be available for an in-person meeting at your office this week? I'd love to understand your gifting needs and present our collection personally.
                         </p>
                     </div>
                     
@@ -920,7 +920,7 @@
                         <div class="cta-buttons">
                             <a href="${sender.calendlyLink}" 
                                class="email-btn email-btn-primary" target="_blank">
-                                Schedule a Meeting
+                                Schedule Meeting
                             </a>
                             <a href="${sender.catalogueLink}" 
                                class="email-btn email-btn-secondary" target="_blank">
@@ -1271,7 +1271,7 @@
                             As discussed, I've attached our latest catalogue featuring premium corporate gifting solutions that would be perfect for <span class="brand-highlight">${companyName}</span>. I believe you'll find some excellent options that align with your requirements.
                         </p>
                         <p>
-                            I'd love to schedule a brief meeting to discuss the options in detail and understand your specific preferences. This way, we can ensure we create the perfect gifting solution for your team.
+                            I'd love to schedule a brief face-to-face meeting to discuss the options in detail and understand your specific preferences. This way, we can ensure we create the perfect gifting solution for your team.
                         </p>
                     </div>
                     
@@ -1286,12 +1286,6 @@
                                 Schedule Meeting
                             </a>
                         </div>
-                    </div>
-                    
-                    <div class="cta-box">
-                        <p>
-                            Feel free to pick a time that works best for you using the scheduling link above. I'm looking forward to our discussion!
-                        </p>
                     </div>
                 </div>
                 
@@ -1361,8 +1355,8 @@
         }
         
         function getFullHTML() {
-            const clientName = document.getElementById('clientName').value || 'Client Name';
-            const companyName = document.getElementById('companyName').value || 'Company Name';
+            const clientName = document.getElementById('clientName').value || 'Client';
+            const companyName = document.getElementById('companyName').value || 'Company';
             const emailType = document.querySelector('input[name="emailType"]:checked').value;
             const senderType = document.querySelector('input[name="senderType"]:checked').value;
             const sender = senderInfo[senderType];
